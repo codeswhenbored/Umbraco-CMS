@@ -145,7 +145,7 @@ internal sealed partial class ContentTypeEditingServiceTests
 
         updateModel.Containers = [container];
 
-        propertyTypeModel = ContentTypePropertyTypeModel("Test Property", "testProperty", containerKey: container.Key);
+        propertyTypeModel = ContentTypePropertyTypeModel("Test Property", "testProperty", key: propertyType.Key, containerKey: container.Key);
         propertyTypeModel.VariesByCulture = variesByCulture;
         propertyTypeModel.VariesBySegment = variesBySegment;
         updateModel.Properties = [propertyTypeModel];
@@ -437,6 +437,7 @@ internal sealed partial class ContentTypeEditingServiceTests
         var contentType = (await ContentTypeEditingService.CreateAsync(createModel, Constants.Security.SuperUserKey)).Result!;
         Assert.AreEqual(1, contentType.PropertyGroups.Count);
         Assert.AreEqual(2, contentType.PropertyTypes.Count());
+        var retainedPropertyKey = contentType.PropertyTypes.Single(pt => pt.Alias == "testProperty2").Key;
 
         ContentTypeCacheRefresher.JsonPayload[]? refreshedPayloads = null;
         ContentTypeCacheRefreshedNotificationHandler.ContentTypeCacheRefreshed = payloads
@@ -446,7 +447,7 @@ internal sealed partial class ContentTypeEditingServiceTests
         updateModel.Containers = [container];
         updateModel.Properties =
         [
-            ContentTypePropertyTypeModel("Test Property 2", "testProperty2", containerKey: container.Key),
+            ContentTypePropertyTypeModel("Test Property 2", "testProperty2", key: retainedPropertyKey, containerKey: container.Key),
         ];
 
         var result = await ContentTypeEditingService.UpdateAsync(contentType, updateModel, Constants.Security.SuperUserKey);
