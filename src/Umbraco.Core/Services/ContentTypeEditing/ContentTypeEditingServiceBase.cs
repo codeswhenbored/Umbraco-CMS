@@ -824,13 +824,8 @@ internal abstract class ContentTypeEditingServiceBase<TContentType, TContentType
         }
 
         // get the current property type (if it exists)
-        IPropertyType propertyType = existingPropertyTypes.FirstOrDefault(pt => pt.Alias == property.Alias)
-                                      ?? new PropertyType(_shortStringHelper, dataType)
-                                      {
-                                          // We are demanding a property type key in the model, so we should probably
-                                          // ensure that it's the one that's actually used.
-                                          Key = property.Key
-                                      };
+        IPropertyType propertyType = existingPropertyTypes.FirstOrDefault(pt => pt.Key == property.Key)
+                                      ?? new PropertyType(_shortStringHelper, dataType) { Key = property.Key };
 
         propertyType.Name = property.Name;
         propertyType.DataTypeId = dataType.Id;
