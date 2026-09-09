@@ -128,3 +128,6 @@ trace.zip
 
 # Playwright local cache
 .playwright-mcp/
+
+# Subagent-driven-development scratch workspaces
+.superpowers/
