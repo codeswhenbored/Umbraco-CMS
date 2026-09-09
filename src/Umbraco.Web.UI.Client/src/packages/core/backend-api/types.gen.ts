@@ -805,6 +805,10 @@ export type DocumentTypeAllowedParentsResponseModel = {
     allowedParentIds: Array<ReferenceByIdModel>;
 };
 
+export type DocumentTypeBlockUsageResponseModel = {
+    isUsedInBlockConfiguration: boolean;
+};
+
 export type DocumentTypeBlueprintItemResponseModel = {
     name: string;
     id: string;
@@ -7389,6 +7393,41 @@ export type GetDocumentTypeByIdAllowedParentsResponses = {
 };
 
 export type GetDocumentTypeByIdAllowedParentsResponse = GetDocumentTypeByIdAllowedParentsResponses[keyof GetDocumentTypeByIdAllowedParentsResponses];
+
+export type GetDocumentTypeByIdBlockUsageData = {
+    body?: never;
+    path: {
+        id: string;
+    };
+    query?: never;
+    url: '/umbraco/management/api/v1/document-type/{id}/block-usage';
+};
+
+export type GetDocumentTypeByIdBlockUsageErrors = {
+    /**
+     * The resource is protected and requires an authentication token
+     */
+    401: unknown;
+    /**
+     * The authenticated user does not have access to this resource
+     */
+    403: unknown;
+    /**
+     * Not Found
+     */
+    404: ProblemDetails;
+};
+
+export type GetDocumentTypeByIdBlockUsageError = GetDocumentTypeByIdBlockUsageErrors[keyof GetDocumentTypeByIdBlockUsageErrors];
+
+export type GetDocumentTypeByIdBlockUsageResponses = {
+    /**
+     * OK
+     */
+    200: DocumentTypeBlockUsageResponseModel;
+};
+
+export type GetDocumentTypeByIdBlockUsageResponse = GetDocumentTypeByIdBlockUsageResponses[keyof GetDocumentTypeByIdBlockUsageResponses];
 
 export type GetDocumentTypeByIdBlueprintData = {
     body?: never;
